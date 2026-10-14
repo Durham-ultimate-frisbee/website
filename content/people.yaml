@@ -1,13 +1,17 @@
 # =============================================================
 #  People — committee, captains, coaches.
-#  One block per person per season. Copy the example below (remove the # signs) to add someone.
+#  One block per person per season. Copy a block (from "- name" down) to add someone.
 #  `group` must be one of the keys in site.yaml → people.groups.
 #  The People page shows the newest season; older seasons are kept as history.
 #
-#  The 2026/27 committee will be added once confirmed (DECISIONS.md D41).
+#  Coach confirmed by the club (DECISIONS.md D55). The 2026/27 exec (committee and
+#  captains) will be added when the club sends the list.
 # =============================================================
 
-[]
+- name: Annie Glasspool
+  role: Coach
+  group: coaches
+  season: 2026/27
 
 # - name: Full Name
 #   role: President
