@@ -1,29 +1,23 @@
-Northvale University Ultimate Frisbee Club was founded in 2004 by a handful of students who
-met throwing a disc on the south field after lectures. Twenty-odd years later we are one of the
-largest sports clubs at the university.
+Durham Ultimate Frisbee (DUF) is Durham University's ultimate frisbee club and part of
+Team Durham. We are a mixed-gender, mixed-ability club, and one of the highest-performing
+university teams in the country: in the 2024–25 season we qualified for every National
+Championship.
+
+Most of our players arrive having never heard of the sport — and go on to play in
+high-level competitions, some even internationally.
 
 ## What we do
 
-- **Training** three times a week — indoor in winter, outdoor from spring
-- **Competitions** in open, women's and mixed divisions, from friendly tournaments to student nationals
-- **Socials** every week, plus an end-of-season ceilidh nobody forgets
+- **Training** — several sessions every week, with split-gender and mixed teams, both indoors and outdoors
+- **Beginners Tournaments** — in Michaelmas term, so new players can compete in a low-pressure setting
+- **Socials** — frequent socials throughout the year, a great way to get to know everyone in DUF
 
-## Spirit of the Game
+## Highlights
 
-Ultimate has no referees. Players are responsible for their own calls, and every game ends
-with a spirit circle where both teams thank each other. We care about spirit as much as results —
-which is why we are proud of every Spirit Award in our trophy cabinet.
+- 2nd place at Men's Indoor Nationals 2020
+- Men's Outdoor Northern League Champions 2019
 
-## Our history
+## Find out more
 
-| Year | Milestone |
-|------|-----------|
-| 2004 | Club founded with twelve members |
-| 2011 | First women's team entered |
-| 2018 | First national medal |
-| 2024 | First Northvale Classic tournament hosted |
-
-## Join us
-
-Everyone is welcome, whatever your experience. Find our training times on the
-news page or say hello on social media.
+Follow us on [Instagram](https://www.instagram.com/durhamultimatefrisbee/) or join our
+[Facebook group](https://www.facebook.com/groups/durhamultimatefrisbee/) for the latest news.

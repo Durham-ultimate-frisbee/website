@@ -1,7 +1,9 @@
-// Test harness: builds the site against a throwaway copy of `content/`.
+// Test harness: builds the site against a throwaway copy of the test fixture content.
 //
-// Each call copies the real example content into a temp directory, lets the
-// test mutate it, then runs `astro build` with CONTENT_DIR pointing at the copy.
+// Each call copies tests/fixtures/content (a fixed, fictional club) into a scratch
+// directory, lets the test mutate it, then runs `astro build` with CONTENT_DIR
+// pointing at the copy. Tests never read the editable content/ folder, so
+// replacing the example content can't break them (DECISIONS.md D29).
 // Builds run one at a time (see `npm test`) and always use --force so the
 // content layer cache can never leak results between cases.
 
@@ -13,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 export const ROOT = path.resolve(fileURLToPath(import.meta.url), '../../..');
 const ASTRO_BIN = path.join(ROOT, 'node_modules', 'astro', 'bin', 'astro.mjs');
 const WORK_ROOT = path.join(ROOT, '.test-work'); // git-ignored; emptied by `npm test` (pretest)
+export const FIXTURE_CONTENT = path.join(ROOT, 'tests', 'fixtures', 'content');
 
 /** Helpers handed to a test's `mutate` callback. Paths are relative to content/. */
 function makeContentApi(dir) {
@@ -36,16 +39,17 @@ function makeContentApi(dir) {
  * @param {object} [opts]
  * @param {(c: ReturnType<typeof makeContentApi>) => void} [opts.mutate]
  * @param {Record<string, string>} [opts.env] extra environment variables (e.g. GITHUB_REPOSITORY)
+ * @param {string} [opts.from] content folder to copy (default: the test fixture)
  * @returns {{ ok: boolean, output: string, dist: string, html: (page?: string) => string, files: () => string[] }}
  */
-export function buildSite({ mutate, env = {} } = {}) {
+export function buildSite({ mutate, env = {}, from = FIXTURE_CONTENT } = {}) {
   // Scratch space lives inside the project: Astro cannot move build output across drives
   // (EXDEV on Windows) and cannot process images from content outside the project root.
   fs.mkdirSync(WORK_ROOT, { recursive: true });
   const work = fs.mkdtempSync(path.join(WORK_ROOT, 'build-'));
   const contentDir = path.join(work, 'content');
   const dist = path.join(work, 'dist');
-  fs.cpSync(path.join(ROOT, 'content'), contentDir, { recursive: true });
+  fs.cpSync(from, contentDir, { recursive: true });
   // Normalise line endings so string fixtures behave the same on every OS.
   for (const f of fs.readdirSync(contentDir, { recursive: true })) {
     const p = path.join(contentDir, f);
@@ -57,7 +61,14 @@ export function buildSite({ mutate, env = {} } = {}) {
   delete baseEnv.GITHUB_REPOSITORY; // local builds must not inherit CI's value unless a test sets it
   const res = spawnSync(process.execPath, [ASTRO_BIN, 'build', '--force', '--outDir', dist], {
     cwd: ROOT,
-    env: { ...baseEnv, ASTRO_TELEMETRY_DISABLED: '1', NO_COLOR: '1', CONTENT_DIR: contentDir, ...env },
+    env: {
+      ...baseEnv,
+      ASTRO_TELEMETRY_DISABLED: '1',
+      NO_COLOR: '1',
+      CONTENT_DIR: contentDir,
+      ASTRO_CACHE_DIR: path.join(work, 'cache'), // never touch the cache a running `astro dev` uses
+      ...env,
+    },
     encoding: 'utf8',
     timeout: 180_000,
   });

@@ -20,4 +20,8 @@ function githubPages() {
 
 export default defineConfig({
   ...githubPages(),
+  // Test builds (tests/helpers/build.mjs) use their own cache and write to .test-work/,
+  // so a running `astro dev` is never disturbed by `npm test` (D40, D43).
+  ...(process.env.ASTRO_CACHE_DIR ? { cacheDir: process.env.ASTRO_CACHE_DIR } : {}),
+  vite: { server: { watch: { ignored: ['**/.test-work/**'] } } },
 });
